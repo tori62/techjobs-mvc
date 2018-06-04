@@ -10,7 +10,7 @@
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-    <form th:action="@{/search/results}">
+    <form th:action="@{/search/results}" >
         <h2>Search by:</h2>
 
         <p>
@@ -20,8 +20,8 @@
                         name="searchType"
                         th:id="${column.key}"
                         th:value="${column.key}"
-                        th:checked="${column.key == 'all'}"/>
-                <label th:for="${column.key}" th:text="${column.value}"></label>
+                        th:checked="${column.key == 'all'}" />
+                <label  th:for="${column.key}" th:text="${column.value}"></label>
             </span>
 
         </p>
@@ -34,11 +34,26 @@
         <input type="submit" value="Search" />
     </form>
 
-    <hr />
-
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+    <div th:if="${jobs} and ${jobs.size()}">
+        <table>
+        <tr th:each="job, idx: ${jobs}" th:class="${idx.odd} ? 'odd'">
+            <td><a th:href="@{/search/results(searchTerm=${job})}" th:text="${job}"></a></td>
+        </tr>
+        </table>
+    </div>
 
 </div>
 
 </body>
 </html>
+
+<!--<div th:if="${items} and ${items.size()}">-->
+
+    <!--<table>-->
+        <!--<tr th:each="item, idx : ${items}" th:class="${idx.odd} ? 'odd'">-->
+            <!--<td><a th:href="@{/list/jobs(column=${column},value=${item})}" th:text="${item}"></a></td>-->
+        <!--</tr>-->
+    <!--</table>-->
+
+<!--</div>-->
